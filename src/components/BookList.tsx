@@ -12,6 +12,7 @@ import colors from "../../assets/config/colors";
 import SPACING from "../../assets/config/SPACING";
 import { NavigationProp } from "@react-navigation/native";
 
+// Kitap verisi için tip tanımlaması
 interface Book {
     id: number;
     name: string;
@@ -21,6 +22,7 @@ interface Book {
     cover: string;
 }
 
+// BookList bileşeni için prop tipleri
 interface BookListProps {
     filteredBooks: Book[];
     onDelete: (id: number) => void;
@@ -32,15 +34,17 @@ const BookList: React.FC<BookListProps> = ({
     onDelete,
     navigation,
 }) => {
+    // Sola kaydırma aksiyonu - Silme butonu
     const renderLeftActions = (item: Book) => (
         <TouchableOpacity
             style={styles.deleteButton}
-            onPress={() => onDelete(item.id)} // Call the delete handler
+            onPress={() => onDelete(item.id)} // Silme butonuna basıldığında onDelete fonksiyonunu çağır
         >
             <Ionicons name="trash-bin" size={24} color={colors.white} />
         </TouchableOpacity>
     );
 
+    // Sağa kaydırma aksiyonu - Detay butonu
     const renderRightActions = (item: Book) => (
         <TouchableOpacity
             style={styles.infoButton}
@@ -55,11 +59,13 @@ const BookList: React.FC<BookListProps> = ({
     );
 
     return (
+        // Kitap listesi görünümü
         <FlatList
             style={styles.bookList}
             data={filteredBooks}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item, index, separators }) => (
+                // Kaydırılabilir kitap öğesi
                 <Swipeable
                     renderRightActions={() => renderRightActions(item)}
                     renderLeftActions={() => renderLeftActions(item)}
@@ -77,6 +83,7 @@ const BookList: React.FC<BookListProps> = ({
     );
 };
 
+// Stil tanımlamaları
 const styles = StyleSheet.create({
     bookList: {
         marginBottom: SPACING * 1.75,

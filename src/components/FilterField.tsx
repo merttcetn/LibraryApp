@@ -1,3 +1,4 @@
+// Tür filtreleme bileşeni - Kitapları türlerine göre filtreleme imkanı sağlar
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Modal, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
@@ -6,6 +7,7 @@ import colors from "../../assets/config/colors";
 import SPACING from "../../assets/config/SPACING";
 import { getBooks } from "../../assets/config/books";
 
+// Bileşen prop tipleri
 interface FilterFieldProps {
     selectedGenre: string;
     onGenreChange: (genre: string) => void;
@@ -15,13 +17,16 @@ const FilterField: React.FC<FilterFieldProps> = ({
     selectedGenre,
     onGenreChange,
 }) => {
+    // State tanımlamaları
     const [modalVisible, setModalVisible] = useState(false);
     const [genres, setGenres] = useState<string[]>([]);
 
+    // Component mount olduğunda türleri yükle
     useEffect(() => {
         updateGenres();
     }, []);
 
+    // Mevcut kitaplardan benzersiz türleri al
     const updateGenres = () => {
         const books = getBooks();
         const uniqueGenres = [
@@ -39,6 +44,7 @@ const FilterField: React.FC<FilterFieldProps> = ({
 
     return (
         <>
+            {/* Filtre butonu */}
             <TouchableOpacity
                 style={styles.filterButton}
                 onPress={handleOpenModal}
@@ -46,6 +52,7 @@ const FilterField: React.FC<FilterFieldProps> = ({
                 <Ionicons name="filter" size={24} color={colors.white} />
             </TouchableOpacity>
 
+            {/* Tür seçim modalı */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -54,9 +61,10 @@ const FilterField: React.FC<FilterFieldProps> = ({
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
+                        {/* Modal başlığı */}
                         <View style={styles.modalHeader}>
                             <Text style={styles.modalTitle}>
-                                Filter by Genre
+                                Türe Göre Filtrele
                             </Text>
                             <TouchableOpacity
                                 onPress={() => setModalVisible(false)}
@@ -70,6 +78,7 @@ const FilterField: React.FC<FilterFieldProps> = ({
                             </TouchableOpacity>
                         </View>
 
+                        {/* Tür seçim picker'ı */}
                         <View style={styles.pickerContainer}>
                             <Picker
                                 selectedValue={selectedGenre}
@@ -97,6 +106,7 @@ const FilterField: React.FC<FilterFieldProps> = ({
     );
 };
 
+// Stil tanımlamaları
 const styles = StyleSheet.create({
     filterButton: {
         marginLeft: SPACING,

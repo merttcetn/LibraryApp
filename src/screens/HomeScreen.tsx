@@ -1,3 +1,4 @@
+// Ana ekran bileşeni - Kütüphane uygulamasının ana görünümü
 import React, { useEffect, useState } from "react";
 import {
     SafeAreaView,
@@ -9,18 +10,22 @@ import {
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useSelector } from "react-redux";
+// Özel bileşenler
 import SearchField from "../components/SearchField";
 import SortingField from "../components/SortingField";
 import FilterField from "../components/FilterField";
 import BookList from "../components/BookList";
+// Yardımcı fonksiyonlar ve yapılandırmalar
 import { getBooks } from "../../assets/config/books";
 import { RootStackParamList } from "../navigation/AppNavigator";
 import SPACING from "../../assets/config/SPACING";
 import colors from "../../assets/config/colors";
 
+// Navigation tipleri
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 
 const HomeScreen: React.FC = () => {
+    // Navigasyon ve state yönetimi
     const navigation = useNavigation<HomeScreenNavigationProp>();
     const [allBooks, setAllBooks] = useState(getBooks());
     const [filteredBooks, setFilteredBooks] = useState(allBooks);
@@ -37,10 +42,11 @@ const HomeScreen: React.FC = () => {
         }, [])
     );
 
+    // Kitapları filtrele - Arama metni ve türe göre
     const filterBooks = (text: string, genre: string, books = allBooks) => {
         let filtered = books;
 
-        // Arama filtrelemesi
+        // Metin araması filtrelemesi
         if (text) {
             const lowerCaseText = text.toLowerCase();
             filtered = filtered.filter((book) => {
@@ -65,22 +71,26 @@ const HomeScreen: React.FC = () => {
         setFilteredBooks(filtered);
     };
 
+    // Arama işleyicisi
     const handleSearch = (text: string) => {
         setSearchText(text);
         filterBooks(text, selectedGenre);
     };
 
+    // Tür değişikliği işleyicisi
     const handleGenreChange = (genre: string) => {
         setSelectedGenre(genre);
         filterBooks(searchText, genre);
     };
 
+    // Kitap silme işleyicisi
     const handleDelete = (id: number) => {
         const updatedBooks = allBooks.filter((book) => book.id !== id);
         setAllBooks(updatedBooks);
         filterBooks(searchText, selectedGenre, updatedBooks);
     };
 
+    // Sıralama değiştiğinde kitapları yeniden sırala
     useEffect(() => {
         if (selectedSort) {
             const sortedBooks = [...filteredBooks].sort((a, b) => {
@@ -98,6 +108,7 @@ const HomeScreen: React.FC = () => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            {/* Başlık ve filtre alanı */}
             <View style={styles.titleContainer}>
                 <View style={styles.titleRow}>
                     <Text style={styles.title}>Library App</Text>
@@ -108,21 +119,21 @@ const HomeScreen: React.FC = () => {
                 </View>
             </View>
 
+            {/* Arama, sıralama ve kitap listesi bileşenleri */}
             <SearchField onChange={handleSearch} />
-
             <SortingField />
-
             <BookList
                 filteredBooks={filteredBooks}
                 onDelete={handleDelete}
                 navigation={navigation}
             />
 
+            {/* Yeni kitap ekleme butonu */}
             <TouchableOpacity
                 style={styles.addButton}
                 onPress={() => navigation.navigate("AddBook")}
             >
-                <Text style={styles.addButtonText}>Add Book to Library</Text>
+                <Text style={styles.addButtonText}>Kitap Ekle</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );
@@ -130,6 +141,7 @@ const HomeScreen: React.FC = () => {
 
 export default HomeScreen;
 
+// Stil tanımlamaları
 const styles = StyleSheet.create({
     safeArea: {
         height: "100%",
