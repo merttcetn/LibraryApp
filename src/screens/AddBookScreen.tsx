@@ -5,14 +5,15 @@ import {
     TextInput,
     TouchableOpacity,
     StyleSheet,
+    Alert,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import colors from "../../assets/config/colors";
 import SPACING from "../../assets/config/SPACING";
+import { addBook } from "../../assets/config/books";
 
-// Define your Stack Navigator type
 type AddBookScreenProps = {
-    navigation: StackNavigationProp<any>; // Adjust the type according to your stack navigator setup
+    navigation: StackNavigationProp<any>;
 };
 
 const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
@@ -23,15 +24,31 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
     const [bookCover, setBookCover] = useState("");
 
     const handleAddBook = () => {
-        // Handle form submission
-        console.log({
-            bookName,
-            isbn,
-            authors: authors.split(","),
-            genre,
-            bookCover,
-        });
-        navigation.goBack(); // Go back to the home screen
+        // Validation
+        if (!bookName || !authors || !genre) {
+            Alert.alert(
+                "Missing Information",
+                "Please fill in at least the book name, author(s), and genre."
+            );
+            return;
+        }
+
+        // Add the book
+        const newBook = {
+            name: bookName,
+            isbn: isbn,
+            authors: authors.split(",").map((author) => author.trim()),
+            genre: genre,
+            cover: bookCover || "https://via.placeholder.com/150?text=No+Cover",
+        };
+
+        addBook(newBook);
+        Alert.alert("Success", "Book added successfully!", [
+            {
+                text: "OK",
+                onPress: () => navigation.goBack(),
+            },
+        ]);
     };
 
     const cancelAdding = () => {
@@ -44,7 +61,7 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
                 <Text style={styles.title}>Add Book to Library</Text>
             </View>
             <View style={styles.innerContainer}>
-                <Text style={styles.label}>Book Name</Text>
+                <Text style={styles.label}>Book Name*</Text>
                 <TextInput
                     style={styles.input}
                     value={bookName}
@@ -63,17 +80,17 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
                     keyboardType="numeric"
                 />
 
-                <Text style={styles.label}>Author(s)</Text>
+                <Text style={styles.label}>Author(s)*</Text>
                 <TextInput
                     style={styles.input}
                     value={authors}
                     onChangeText={setAuthors}
-                    placeholder="Author"
+                    placeholder="Author(s) - separate with commas"
                     placeholderTextColor={colors.light}
                     multiline={true}
                 />
 
-                <Text style={styles.label}>Genre</Text>
+                <Text style={styles.label}>Genre*</Text>
                 <TextInput
                     style={styles.input}
                     value={genre}
@@ -90,6 +107,7 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
                     placeholder="Book Cover URL"
                     placeholderTextColor={colors.light}
                 />
+                <Text style={styles.note}>* Required fields</Text>
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
@@ -145,9 +163,16 @@ const styles = StyleSheet.create({
         borderRadius: SPACING,
         fontSize: SPACING * 1.5,
     },
+    note: {
+        color: colors.light,
+        fontSize: SPACING * 1.2,
+        fontStyle: "italic",
+        textAlign: "center",
+        marginTop: SPACING,
+    },
     buttonContainer: {
         flexDirection: "row",
-        marginTop: SPACING * 14,
+        marginTop: SPACING * 10,
         justifyContent: "center",
     },
     addButton: {
@@ -156,7 +181,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: SPACING,
         width: SPACING * 15,
-        marginLeft: SPACING * 3, // Added margin for spacing between buttons
+        marginLeft: SPACING * 3,
     },
     addButtonText: {
         color: colors.white,
@@ -164,7 +189,7 @@ const styles = StyleSheet.create({
         fontWeight: "600",
     },
     cancelButton: {
-        backgroundColor: colors.red, // You can change the color for better visibility
+        backgroundColor: colors.red,
         padding: SPACING * 1.5,
         alignItems: "center",
         borderRadius: SPACING,

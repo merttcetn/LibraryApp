@@ -6,14 +6,15 @@ import {
     TouchableOpacity,
     StyleSheet,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useSelector } from "react-redux";
 import SearchField from "../components/SearchField";
 import SortingField from "../components/SortingField";
+import FilterField from "../components/FilterField";
 import BookList from "../components/BookList";
-import books from "../../assets/config/books";
-import { RootStackParamList } from "../navigation/AppNavigator"; // Import the navigation types
+import { getBooks } from "../../assets/config/books";
+import { RootStackParamList } from "../navigation/AppNavigator";
 import SPACING from "../../assets/config/SPACING";
 import colors from "../../assets/config/colors";
 
@@ -21,45 +22,90 @@ type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 
 const HomeScreen: React.FC = () => {
     const navigation = useNavigation<HomeScreenNavigationProp>();
-    const [filteredBooks, setFilteredBooks] = useState(books);
+    const [allBooks, setAllBooks] = useState(getBooks());
+    const [filteredBooks, setFilteredBooks] = useState(allBooks);
+    const [searchText, setSearchText] = useState("");
+    const [selectedGenre, setSelectedGenre] = useState("All");
     const selectedSort = useSelector((state: any) => state.sort.selectedSort);
 
-    const handleSearch = (text: string) => {
-        const filtered = books.filter((book) => {
+    // Ekran her odaklandığında kitap listesini güncelle
+    useFocusEffect(
+        React.useCallback(() => {
+            const books = getBooks();
+            setAllBooks(books);
+            filterBooks(searchText, selectedGenre, books);
+        }, [])
+    );
+
+    const filterBooks = (text: string, genre: string, books = allBooks) => {
+        let filtered = books;
+
+        // Arama filtrelemesi
+        if (text) {
             const lowerCaseText = text.toLowerCase();
-            const nameMatch = book.name.toLowerCase().includes(lowerCaseText);
-            const authorMatch = book.authors.some((author) =>
-                author.toLowerCase().includes(lowerCaseText)
-            );
-            const isbnMatch =
-                book.isbn && book.isbn.toLowerCase().includes(lowerCaseText);
-            return nameMatch || authorMatch || isbnMatch;
-        });
+            filtered = filtered.filter((book) => {
+                const nameMatch = book.name
+                    .toLowerCase()
+                    .includes(lowerCaseText);
+                const authorMatch = book.authors.some((author) =>
+                    author.toLowerCase().includes(lowerCaseText)
+                );
+                const isbnMatch =
+                    book.isbn &&
+                    book.isbn.toLowerCase().includes(lowerCaseText);
+                return nameMatch || authorMatch || isbnMatch;
+            });
+        }
+
+        // Tür filtrelemesi
+        if (genre !== "All") {
+            filtered = filtered.filter((book) => book.genre === genre);
+        }
+
         setFilteredBooks(filtered);
     };
 
+    const handleSearch = (text: string) => {
+        setSearchText(text);
+        filterBooks(text, selectedGenre);
+    };
+
+    const handleGenreChange = (genre: string) => {
+        setSelectedGenre(genre);
+        filterBooks(searchText, genre);
+    };
+
     const handleDelete = (id: number) => {
-        setFilteredBooks((prevBooks) =>
-            prevBooks.filter((book) => book.id !== id)
-        );
+        const updatedBooks = allBooks.filter((book) => book.id !== id);
+        setAllBooks(updatedBooks);
+        filterBooks(searchText, selectedGenre, updatedBooks);
     };
 
     useEffect(() => {
-        const sortedBooks = [...filteredBooks].sort((a, b) => {
-            if (selectedSort === "name") return a.name.localeCompare(b.name);
-            if (selectedSort === "author")
-                return a.authors[0].localeCompare(b.authors[0]);
-            if (selectedSort === "isbn" && a.isbn && b.isbn)
-                return a.isbn.localeCompare(b.isbn);
-            return 0;
-        });
-        setFilteredBooks(sortedBooks);
+        if (selectedSort) {
+            const sortedBooks = [...filteredBooks].sort((a, b) => {
+                if (selectedSort === "name")
+                    return a.name.localeCompare(b.name);
+                if (selectedSort === "author")
+                    return a.authors[0].localeCompare(b.authors[0]);
+                if (selectedSort === "isbn" && a.isbn && b.isbn)
+                    return a.isbn.localeCompare(b.isbn);
+                return 0;
+            });
+            setFilteredBooks(sortedBooks);
+        }
     }, [selectedSort]);
 
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>Library App</Text>
+                <View style={styles.titleRow}>
+                    <Text style={styles.title}>Library App</Text>
+                    <FilterField
+                        selectedGenre={selectedGenre}
+                        onGenreChange={handleGenreChange}
+                    />
+                </View>
             </View>
 
             <SearchField onChange={handleSearch} />
@@ -115,7 +161,13 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         width: "100%",
+        paddingHorizontal: SPACING,
+        marginBottom: SPACING,
+    },
+    titleRow: {
+        flexDirection: "row",
         alignItems: "center",
+        justifyContent: "center",
     },
     title: {
         color: colors.white,

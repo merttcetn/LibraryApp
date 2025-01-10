@@ -1,5 +1,5 @@
-// kitap listesi ŞİMDİLİK
-const books = [
+// kitap listesi
+let books = [
     {
         id: 1,
         name: "To Kill a Mockingbird",
@@ -81,5 +81,16 @@ const books = [
         cover: "https://cdn.kobo.com/book-images/5967e7fb-edc8-403b-9989-f8aab7b3ed89/1200/1200/False/the-alchemist-38.jpg",
     },
 ];
+
+export const addBook = (book) => {
+    const newBook = {
+        ...book,
+        id: books.length + 1,
+    };
+    books = [...books, newBook];
+    return newBook;
+};
+
+export const getBooks = () => books;
 
 export default books;
