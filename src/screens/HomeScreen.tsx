@@ -133,7 +133,7 @@ const HomeScreen: React.FC = () => {
                 style={styles.addButton}
                 onPress={() => navigation.navigate("AddBook")}
             >
-                <Text style={styles.addButtonText}>Kitap Ekle</Text>
+                <Text style={styles.addButtonText}>Add Book to Library</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );

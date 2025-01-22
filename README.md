@@ -1,112 +1,102 @@
 # Library App
 
-Bu uygulama, kitap koleksiyonunuzu yönetmenize yardımcı olan modern bir React Native uygulamasıdır.
+Modern ve kullanıcı dostu bir kütüphane yönetim uygulaması. Bu React Native tabanlı uygulama, kişisel kitap koleksiyonunuzu kolayca yönetmenizi sağlar.
 
-## Özellikler
+## 🌟 Özellikler
 
--   Kitap ekleme, silme ve detaylarını görüntüleme
--   İsim, yazar ve ISBN numarasına göre kitap arama
--   Kitapları türlerine göre filtreleme
--   İsim, yazar ve ISBN'e göre sıralama
--   Kaydırmalı kitap listesi ve interaktif kullanıcı arayüzü
+### 📚 Kitap Yönetimi
 
-## Kullanılan Teknolojiler
+-   Yeni kitap ekleme (isim, yazar, tür, ISBN ve kapak resmi)
+-   Kitap silme ve detaylarını görüntüleme
+-   Varsayılan kapak resmi desteği
 
-### Ana Teknolojiler
+### 🔍 Gelişmiş Arama ve Filtreleme
+
+-   İsim, yazar ve ISBN numarasına göre anlık arama
+-   Türe göre filtreleme (modal pencere ile kolay seçim)
+-   Tüm filtreleme seçeneklerinin dinamik güncellenmesi
+
+### 📋 Sıralama Özellikleri
+
+-   İsme göre sıralama
+-   Yazara göre sıralama
+-   ISBN numarasına göre sıralama
+
+### 💫 Kullanıcı Deneyimi
+
+-   Modern ve sezgisel arayüz
+-   Kaydırmalı kitap listesi
+-   Kolay gezinme
+-   Anlık geri bildirimler ve uyarılar
+
+## 🛠 Kullanılan Teknolojiler
+
+### Temel Teknolojiler
 
 -   **React Native**: Mobil uygulama geliştirme çatısı
--   **TypeScript**: Tip güvenli JavaScript süper kümesi
--   **Redux Toolkit**: State yönetimi için
--   **React Navigation**: Ekranlar arası gezinme için
+-   **TypeScript**: Tip güvenli geliştirme
+-   **Redux Toolkit**: Durum yönetimi
+-   **React Navigation**: Ekranlar arası gezinme
 
-### Önemli Kütüphaneler
+### UI Bileşenleri
 
--   `@react-navigation/native`: Temel navigasyon işlevleri
--   `@react-navigation/stack`: Stack tabanlı ekran geçişleri
--   `react-native-gesture-handler`: Dokunma ve hareket işlemleri
--   `@reduxjs/toolkit`: Modern Redux state yönetimi
--   `expo`: React Native geliştirme araçları
+-   **@react-native-picker/picker**: Tür seçimi için
+-   **@expo/vector-icons**: İkonlar için
+-   **React Native Gesture Handler**: Dokunma işlemleri için
 
-## Proje Yapısı
+## 📁 Proje Yapısı
 
 ```
 LibraryApp/
 ├── src/
-│   ├── components/          # Yeniden kullanılabilir UI bileşenleri
-│   │   ├── BookList.tsx    # Kitap listesi bileşeni
-│   │   ├── FilterField.tsx # Tür filtreleme bileşeni
-│   │   ├── SearchField.tsx # Arama bileşeni
-│   │   └── SortingField.tsx# Sıralama bileşeni
-│   ├── screens/            # Uygulama ekranları
-│   │   ├── HomeScreen.tsx  # Ana ekran
-│   │   ├── AddBookScreen.tsx # Kitap ekleme ekranı
-│   │   └── BookDetailsScreen.tsx # Kitap detay ekranı
-│   ├── features/           # Redux özellikleri
-│   │   └── sort/          # Sıralama ile ilgili Redux kodları
-│   ├── navigation/         # Navigasyon yapılandırması
-│   └── store.ts           # Redux store yapılandırması
-├── assets/                 # Statik dosyalar (resimler, fontlar)
-└── App.tsx                # Ana uygulama bileşeni
+│   ├── components/
+│   │   ├── BookList.tsx       # Kitap listesi
+│   │   ├── FilterField.tsx    # Tür filtreleme modalı
+│   │   ├── SearchField.tsx    # Arama alanı
+│   │   └── SortingField.tsx   # Sıralama seçenekleri
+│   ├── screens/
+│   │   ├── HomeScreen.tsx     # Ana ekran
+│   │   ├── AddBookScreen.tsx  # Kitap ekleme ekranı
+│   │   └── BookDetailsScreen.tsx # Kitap detayları
+│   ├── features/
+│   │   └── sort/             # Sıralama ile ilgili Redux kodları
+│   ├── navigation/
+│   └── store.ts
+└── assets/
+    └── config/
+        ├── books.js          # Kitap verileri
+        ├── colors.js         # Renk tanımları
+        └── SPACING.js        # Boşluk sabitleri
 ```
 
-## Bileşenler ve İşlevleri
+## 🎯 Temel Bileşenler
 
-### Ana Bileşenler
-
-#### BookList
-
--   Kitapların listesini görüntüler
--   Sağa/sola kaydırma ile silme ve detay görüntüleme
--   Performans optimizasyonu için FlatList kullanır
-
-#### FilterField
-
--   Kitapları türlerine göre filtreleme
--   Dropdown menü ile kolay seçim
--   Tüm türleri dinamik olarak listeler
-
-#### SearchField
-
--   Gerçek zamanlı arama işlevi
--   İsim, yazar ve ISBN'e göre arama
--   Büyük/küçük harf duyarsız arama
-
-#### SortingField
-
--   Kitapları farklı kriterlere göre sıralama
--   Redux ile sıralama durumu yönetimi
--   Anlık sıralama güncellemesi
-
-### Ekranlar
-
-#### HomeScreen
+### HomeScreen
 
 -   Ana uygulama arayüzü
--   Tüm filtreleme ve sıralama kontrolleri
 -   Kitap listesi görünümü
+-   Arama, filtreleme ve sıralama kontrolleri
 
-#### AddBookScreen
+### FilterField
 
--   Yeni kitap ekleme formu
+-   Modal tabanlı tür filtreleme
+-   Dinamik tür listesi
+-   Kolay seçim arayüzü
+
+### AddBookScreen
+
+-   Kapsamlı kitap ekleme formu
 -   Form doğrulama
--   Resim yükleme desteği
+-   Zorunlu alan kontrolleri
+-   Otomatik ID atama
 
-#### BookDetailsScreen
+### BookList
 
--   Kitap detaylarını görüntüleme
--   Düzenleme seçenekleri
--   Kapsamlı kitap bilgileri
+-   Kaydırılabilir kitap listesi
+-   Her kitap için temel bilgiler
+-   Silme ve detay görüntüleme seçenekleri
 
-## State Yönetimi
-
-Redux Toolkit kullanılarak uygulama durumu yönetilir:
-
--   Sıralama durumu
--   Filtreleme durumu
--   Kitap listesi
--   Arama durumu
-
-## Kurulum ve Çalıştırma
+## 🚀 Başlangıç
 
 1. Projeyi klonlayın:
 
@@ -125,3 +115,26 @@ npm install
 ```bash
 npm start
 ```
+
+## 📱 Kullanım
+
+1. Ana ekranda mevcut kitapları görüntüleyin
+2. Sağ üstteki filtre butonuyla türe göre filtreleme yapın
+3. Arama çubuğunu kullanarak kitapları arayın
+4. "Add Book to Library" butonuyla yeni kitap ekleyin
+5. Kitapları sıralamak için sıralama seçeneklerini kullanın
+
+## 🔄 State Yönetimi
+
+Redux Toolkit ile merkezi state yönetimi:
+
+-   Sıralama durumu
+-   Kitap listesi
+-   Arama ve filtreleme durumları
+
+## 🎨 Tasarım
+
+-   Koyu tema
+-   Tutarlı renk paleti
+-   Responsive tasarım
+-   Kullanıcı dostu arayüz
