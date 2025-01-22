@@ -8,7 +8,7 @@ Modern bir kütüphane yönetim uygulaması. React Native ve TypeScript kullanı
 
 ### Ana Ekran
 
-<img src="screenshots/HomeScreen.png" width="200" alt="Ana Ekran">
+<img src="screenshots/HomeScreen.png" width="250" alt="Ana Ekran">
 
 -   Kitap listesi görünümü
 -   Arama ve filtreleme özellikleri
@@ -16,7 +16,7 @@ Modern bir kütüphane yönetim uygulaması. React Native ve TypeScript kullanı
 
 ### Filtreleme
 
-<img src="screenshots/Filter.png" width="200" alt="Filtreleme">
+<img src="screenshots/Filter.png" width="250" alt="Filtreleme">
 
 -   Modal tabanlı tür filtreleme
 -   Dinamik tür listesi
@@ -24,7 +24,7 @@ Modern bir kütüphane yönetim uygulaması. React Native ve TypeScript kullanı
 
 ### Kitap Detayı
 
-<img src="screenshots/Book.png" width="200" alt="Kitap Detayı">
+<img src="screenshots/Book.png" width="250" alt="Kitap Detayı">
 
 -   Detaylı kitap bilgileri
 -   Kapak resmi görüntüleme
@@ -32,7 +32,7 @@ Modern bir kütüphane yönetim uygulaması. React Native ve TypeScript kullanı
 
 ### Kitap Ekleme
 
-<img src="screenshots/AddBook.png" width="200" alt="Kitap Ekleme">
+<img src="screenshots/AddBook.png" width="250" alt="Kitap Ekleme">
 
 -   Kapsamlı form arayüzü
 -   Zorunlu alan kontrolleri
