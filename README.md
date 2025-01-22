@@ -1,231 +1,255 @@
-# Library App - Teknik Dokümantasyon
+# Library App - Technical Documentation
 
-## 📋 Proje Özeti
+## 📋 Project Overview
 
-Modern bir kütüphane yönetim uygulaması. React Native ve TypeScript kullanılarak geliştirilmiş, kişisel kitap koleksiyonlarını yönetmeyi amaçlayan bir mobil uygulama.
+A modern library management application developed with React Native and TypeScript, designed to help users manage their personal book collections efficiently.
 
-## 📱 Ekran Görüntüleri
+## 📱 Screenshots
 
-### Ana Ekran
+### Home Screen
 
-<img src="screenshots/HomeScreen.png" width="250" alt="Ana Ekran">
+<img src="screenshots/HomeScreen.png" width="250" alt="Home Screen">
 
--   Kitap listesi görünümü
--   Arama ve filtreleme özellikleri
--   Sıralama seçenekleri
+-   Book list view
+-   Search and filtering capabilities
+-   Sorting options
 
-### Filtreleme
+### Filtering
 
-<img src="screenshots/Filter.png" width="250" alt="Filtreleme">
+<img src="screenshots/Filter.png" width="250" alt="Filtering">
 
--   Modal tabanlı tür filtreleme
--   Dinamik tür listesi
--   Kolay seçim arayüzü
+-   Modal-based genre filtering
+-   Dynamic genre list
+-   Easy selection interface
 
-### Kitap Detayı
+### Book Details
 
-<img src="screenshots/Book.png" width="250" alt="Kitap Detayı">
+<img src="screenshots/Book.png" width="250" alt="Book Details">
 
--   Detaylı kitap bilgileri
--   Kapak resmi görüntüleme
--   Silme ve düzenleme seçenekleri
+-   Detailed book information
+-   Cover image display
+-   Delete and edit options
 
-### Kitap Ekleme
+### Add Book
 
-<img src="screenshots/AddBook.png" width="250" alt="Kitap Ekleme">
+<img src="screenshots/AddBook.png" width="250" alt="Add Book">
 
--   Kapsamlı form arayüzü
--   Zorunlu alan kontrolleri
--   Kullanıcı dostu tasarım
+-   Comprehensive form interface
+-   Required field validation
+-   User-friendly design
 
-## 🛠 Teknik Seçimler ve Gerekçelendirmeler
+## 🛠 Technical Choices and Rationale
 
-### 1. Ana Teknoloji Seçimleri
+### 1. Core Technology Choices
 
 #### React Native
 
--   **Neden?**: Cross-platform geliştirme imkanı
--   **Avantajlar**:
-    -   Tek kod tabanı ile iOS ve Android desteği
-    -   Geniş ekosistem ve topluluk desteği
-    -   Native performans
-    -   Hot Reloading ile hızlı geliştirme
+-   **Why?**: Cross-platform development capability
+-   **Benefits**:
+    -   Single codebase for iOS and Android
+    -   Extensive ecosystem and community support
+    -   Native performance
+    -   Rapid development with Hot Reloading
 
 #### TypeScript
 
--   **Neden?**: Tip güvenliği ve kod kalitesi
--   **Avantajlar**:
-    -   Derleme zamanında hata yakalama
-    -   Daha iyi IDE desteği
-    -   Kod okunabilirliği ve bakım kolaylığı
-    -   Interface ve type tanımları ile güvenli geliştirme
+-   **Why?**: Type safety and code quality
+-   **Benefits**:
+    -   Compile-time error detection
+    -   Enhanced IDE support
+    -   Better code readability and maintainability
+    -   Safe development with interfaces and type definitions
 
 #### Redux Toolkit
 
--   **Neden?**: Merkezi state yönetimi
--   **Avantajlar**:
-    -   Öngörülebilir state değişimleri
-    -   DevTools ile debugging kolaylığı
-    -   Immutable state yönetimi
-    -   Boilerplate kod azaltımı
--   **Projede Kullanımı**:
-    -   Kitap sıralama mantığının yönetimi
-    -   Sıralama tercihlerinin global state'te tutulması
-    -   Sıralama durumunun bileşenler arası senkronizasyonu
+-   **Why?**: Centralized state management
+-   **Benefits**:
+    -   Predictable state changes
+    -   Debugging with DevTools
+    -   Immutable state management
+    -   Reduced boilerplate code
+-   **Implementation in Project**:
+    -   Book sorting logic management
+    -   Global sorting preferences
+    -   Cross-component state synchronization
 
-### 2. UI/UX Kararları
+### 2. UI/UX Decisions
 
-#### Modal Tabanlı Filtreleme
+#### Modal-Based Filtering
 
--   **Neden?**: Ekran alanını verimli kullanma
--   **Uygulama**: @react-native-picker/picker ile modal içinde tür seçimi
--   **Avantaj**: Kullanıcı deneyimini bozmadan fonksiyonellik sağlama
+-   **Why?**: Efficient screen space utilization
+-   **Implementation**: Genre selection using @react-native-picker/picker in modal
+-   **Benefit**: Enhanced functionality without compromising UX
 
-#### Koyu Tema
+#### Dark Theme
 
--   **Neden?**: Göz yorgunluğunu azaltma ve modern görünüm
--   **Uygulama**: Özel renk paleti (colors.js)
--   **Avantaj**: Tutarlı ve profesyonel görünüm
+-   **Why?**: Reduced eye strain and modern appearance
+-   **Implementation**: Custom color palette (colors.js)
+-   **Benefit**: Consistent and professional look
 
-### 3. Veri Yönetimi
+### 3. Data Management
 
-#### Yerel State Yönetimi
+#### Local State Management
 
--   **Yapı**: books.js içinde array tabanlı veri saklama
--   **Avantaj**: Prototip geliştirme için hızlı çözüm
--   **Gelecek Geliştirme**: Backend entegrasyonu için hazır yapı
+-   **Structure**: Array-based data storage in books.js
+-   **Benefit**: Quick solution for prototype development
+-   **Future Development**: Ready for backend integration
 
-## 🚀 Kurulum Adımları
+## 🚀 Setup Instructions
 
-### 1. Gereksinimler
+### 1. Prerequisites
 
 ```bash
-# Node.js (v14 veya üzeri)
+# Node.js (v14 or higher)
 node --version
 
-# npm (v6 veya üzeri)
+# npm (v6 or higher)
 npm --version
 
 # React Native CLI
 npm install -g react-native-cli
 
-# Xcode (iOS için, sadece macOS)
+# Xcode (for iOS, macOS only)
 xcode-select --install
 
-# Android Studio (Android için)
-# https://developer.android.com/studio adresinden indirin
+# Android Studio (for Android)
+# Download from https://developer.android.com/studio
 ```
 
-### 2. Proje Kurulumu
+### 2. Project Setup
 
 ```bash
-# Projeyi klonlayın
+# Clone the repository
 git clone https://github.com/merttcetn/LibraryApp
 cd LibraryApp
 
-# Bağımlılıkları yükleyin
+# Install dependencies
 npm install
 
-# iOS için ek kurulum (sadece macOS)
+# iOS additional setup (macOS only)
 cd ios
 pod install
 cd ..
 ```
 
-### 3. Geliştirme Ortamı Ayarları
+### 3. Development Environment Setup
 
 ```bash
-# .env dosyasını oluşturun (gerekirse)
+# Create .env file (if needed)
 cp .env.example .env
 
-# Gerekli izinleri ayarlayın (Unix sistemlerde)
+# Set permissions (Unix systems)
 chmod +x android/gradlew
 ```
 
-### 4. Uygulamayı Çalıştırma
+### 4. Running the Application
 
 ```bash
-# iOS Simulator için (sadece macOS)
+# For iOS Simulator (macOS only)
 npm run ios
 
-# Android Emulator için
+# For Android Emulator
 npm run android
 
-# Metro bundler'ı başlatma
+# Start Metro bundler
 npm start
 ```
 
-## 🔧 Proje Yapılandırması
+## 🔧 Project Configuration
 
-### Dizin Yapısı ve Sorumluluklar
+### Directory Structure and Responsibilities
 
 ```
 LibraryApp/
-├── src/                    # Kaynak kodlar
-│   ├── components/         # Yeniden kullanılabilir UI bileşenleri
-│   ├── screens/           # Ekran bileşenleri
-│   ├── features/          # Redux özellikleri
-│   ├── navigation/        # Navigasyon yapılandırması
-│   └── store.ts          # Redux store yapılandırması
+├── src/                    # Source code
+│   ├── components/         # Reusable UI components
+│   ├── screens/           # Screen components
+│   ├── features/          # Redux features
+│   ├── navigation/        # Navigation configuration
+│   └── store.ts          # Redux store configuration
 └── assets/
-    └── config/           # Yapılandırma dosyaları
+    └── config/           # Configuration files
 ```
 
-### Önemli Yapılandırma Dosyaları
+### Key Configuration Files
 
--   **babel.config.js**: Babel transpiler ayarları
--   **tsconfig.json**: TypeScript derleyici ayarları
--   **package.json**: Proje bağımlılıkları ve scriptler
+-   **babel.config.js**: Babel transpiler settings
+-   **tsconfig.json**: TypeScript compiler configuration
+-   **package.json**: Project dependencies and scripts
 
-## 📱 Geliştirme Kılavuzu
+## 📱 Development Guide
 
-### Kod Standartları
+### Code Standards
 
--   ESLint ve Prettier kullanımı
--   TypeScript tip tanımları zorunluluğu
--   Component bazlı dosya organizasyonu
+-   ESLint and Prettier usage
+-   TypeScript type definitions requirement
+-   Component-based file organization
 
-### State Yönetimi Prensipleri
+### State Management Principles
 
--   Redux actions için tip tanımları
--   Immutable state güncellemeleri
--   Selector kullanımı
+-   Type definitions for Redux actions
+-   Immutable state updates
+-   Selector pattern usage
 
-### Performans Optimizasyonları
+### Performance Optimizations
 
--   React.memo kullanımı
--   useCallback ve useMemo optimizasyonları
--   Lazy loading uygulamaları
+-   React.memo implementation
+-   useCallback and useMemo optimizations
+-   Lazy loading implementations
 
-### 2. Redux İmplementasyonu
+### Redux Implementation
 
-#### Sıralama Özelliği
+#### Sorting Feature
 
--   **Store Yapısı**:
-    ```typescript
-    interface SortState {
-        selectedSort: "name" | "author" | "isbn" | null;
-    }
-    ```
--   **Actions**:
-    -   `setSort`: Sıralama kriterini günceller
-    -   `clearSort`: Sıralama kriterini temizler
+```typescript
+interface SortState {
+    selectedSort: "name" | "author" | "isbn" | null;
+}
+```
 
-#### Neden Redux ile Sıralama?
+#### Actions
 
-1. **Merkezi Yönetim**:
+-   `setSort`: Updates sorting criterion
+-   `clearSort`: Clears sorting criterion
 
-    - Sıralama tercihi tüm uygulama genelinde tutarlı
-    - Farklı ekranlar/bileşenler arasında senkronizasyon
-    - Sıralama durumunun kalıcılığı
+#### Why Redux for Sorting?
 
-2. **Performans**:
+1. **Centralized Management**:
 
-    - Gereksiz yeniden render'ların önlenmesi
-    - Memoization ile optimize edilmiş sıralama
-    - Selector pattern kullanımı
+    - Consistent sorting preferences across the app
+    - Synchronization between screens/components
+    - Persistence of sorting state
 
-3. **Bakım Kolaylığı**:
-    - Sıralama mantığının tek bir yerde toplanması
-    - Test edilebilirlik
-    - Gelecek geliştirmelere uygunluk
+2. **Performance**:
+
+    - Prevention of unnecessary re-renders
+    - Optimized sorting with memoization
+    - Selector pattern implementation
+
+3. **Maintainability**:
+    - Centralized sorting logic
+    - Testability
+    - Ready for future enhancements
+
+## 🔄 Future Developments
+
+1. Backend Integration
+
+    - RESTful API implementation
+    - Real-time updates support
+
+2. Offline Usage
+
+    - AsyncStorage implementation
+    - Offline-first approach
+
+3. Testing Coverage
+    - Unit tests
+    - Integration tests
+    - E2E tests
+
+## 📚 Additional Resources
+
+-   [React Native Documentation](https://reactnative.dev/docs/getting-started)
+-   [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+-   [Redux Toolkit Guide](https://redux-toolkit.js.org/introduction/getting-started)
