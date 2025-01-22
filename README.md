@@ -1,140 +1,231 @@
-# Library App
+# Library App - Teknik Dokümantasyon
 
-Modern ve kullanıcı dostu bir kütüphane yönetim uygulaması. Bu React Native tabanlı uygulama, kişisel kitap koleksiyonunuzu kolayca yönetmenizi sağlar.
+## 📋 Proje Özeti
 
-## 🌟 Özellikler
+Modern bir kütüphane yönetim uygulaması. React Native ve TypeScript kullanılarak geliştirilmiş, kişisel kitap koleksiyonlarını yönetmeyi amaçlayan bir mobil uygulama.
 
-### 📚 Kitap Yönetimi
+## 📱 Ekran Görüntüleri
 
--   Yeni kitap ekleme (isim, yazar, tür, ISBN ve kapak resmi)
--   Kitap silme ve detaylarını görüntüleme
--   Varsayılan kapak resmi desteği
+### Ana Ekran
 
-### 🔍 Gelişmiş Arama ve Filtreleme
+![Ana Ekran](screenshots/HomeScreen.png)
 
--   İsim, yazar ve ISBN numarasına göre anlık arama
--   Türe göre filtreleme (modal pencere ile kolay seçim)
--   Tüm filtreleme seçeneklerinin dinamik güncellenmesi
-
-### 📋 Sıralama Özellikleri
-
--   İsme göre sıralama
--   Yazara göre sıralama
--   ISBN numarasına göre sıralama
-
-### 💫 Kullanıcı Deneyimi
-
--   Modern ve sezgisel arayüz
--   Kaydırmalı kitap listesi
--   Kolay gezinme
--   Anlık geri bildirimler ve uyarılar
-
-## 🛠 Kullanılan Teknolojiler
-
-### Temel Teknolojiler
-
--   **React Native**: Mobil uygulama geliştirme çatısı
--   **TypeScript**: Tip güvenli geliştirme
--   **Redux Toolkit**: Durum yönetimi
--   **React Navigation**: Ekranlar arası gezinme
-
-### UI Bileşenleri
-
--   **@react-native-picker/picker**: Tür seçimi için
--   **@expo/vector-icons**: İkonlar için
--   **React Native Gesture Handler**: Dokunma işlemleri için
-
-## 📁 Proje Yapısı
-
-```
-LibraryApp/
-├── src/
-│   ├── components/
-│   │   ├── BookList.tsx       # Kitap listesi
-│   │   ├── FilterField.tsx    # Tür filtreleme modalı
-│   │   ├── SearchField.tsx    # Arama alanı
-│   │   └── SortingField.tsx   # Sıralama seçenekleri
-│   ├── screens/
-│   │   ├── HomeScreen.tsx     # Ana ekran
-│   │   ├── AddBookScreen.tsx  # Kitap ekleme ekranı
-│   │   └── BookDetailsScreen.tsx # Kitap detayları
-│   ├── features/
-│   │   └── sort/             # Sıralama ile ilgili Redux kodları
-│   ├── navigation/
-│   └── store.ts
-└── assets/
-    └── config/
-        ├── books.js          # Kitap verileri
-        ├── colors.js         # Renk tanımları
-        └── SPACING.js        # Boşluk sabitleri
-```
-
-## 🎯 Temel Bileşenler
-
-### HomeScreen
-
--   Ana uygulama arayüzü
 -   Kitap listesi görünümü
--   Arama, filtreleme ve sıralama kontrolleri
+-   Arama ve filtreleme özellikleri
+-   Sıralama seçenekleri
 
-### FilterField
+### Filtreleme
+
+![Filtreleme](screenshots/Filter.png)
 
 -   Modal tabanlı tür filtreleme
 -   Dinamik tür listesi
 -   Kolay seçim arayüzü
 
-### AddBookScreen
+### Kitap Detayı
 
--   Kapsamlı kitap ekleme formu
--   Form doğrulama
+![Kitap Detayı](screenshots/Book.png)
+
+-   Detaylı kitap bilgileri
+-   Kapak resmi görüntüleme
+-   Silme ve düzenleme seçenekleri
+
+### Kitap Ekleme
+
+![Kitap Ekleme](screenshots/AddBook.png)
+
+-   Kapsamlı form arayüzü
 -   Zorunlu alan kontrolleri
--   Otomatik ID atama
+-   Kullanıcı dostu tasarım
 
-### BookList
+## 🛠 Teknik Seçimler ve Gerekçelendirmeler
 
--   Kaydırılabilir kitap listesi
--   Her kitap için temel bilgiler
--   Silme ve detay görüntüleme seçenekleri
+### 1. Ana Teknoloji Seçimleri
 
-## 🚀 Başlangıç
+#### React Native
 
-1. Projeyi klonlayın:
+-   **Neden?**: Cross-platform geliştirme imkanı
+-   **Avantajlar**:
+    -   Tek kod tabanı ile iOS ve Android desteği
+    -   Geniş ekosistem ve topluluk desteği
+    -   Native performans
+    -   Hot Reloading ile hızlı geliştirme
+
+#### TypeScript
+
+-   **Neden?**: Tip güvenliği ve kod kalitesi
+-   **Avantajlar**:
+    -   Derleme zamanında hata yakalama
+    -   Daha iyi IDE desteği
+    -   Kod okunabilirliği ve bakım kolaylığı
+    -   Interface ve type tanımları ile güvenli geliştirme
+
+#### Redux Toolkit
+
+-   **Neden?**: Merkezi state yönetimi
+-   **Avantajlar**:
+    -   Öngörülebilir state değişimleri
+    -   DevTools ile debugging kolaylığı
+    -   Immutable state yönetimi
+    -   Boilerplate kod azaltımı
+-   **Projede Kullanımı**:
+    -   Kitap sıralama mantığının yönetimi
+    -   Sıralama tercihlerinin global state'te tutulması
+    -   Sıralama durumunun bileşenler arası senkronizasyonu
+
+### 2. UI/UX Kararları
+
+#### Modal Tabanlı Filtreleme
+
+-   **Neden?**: Ekran alanını verimli kullanma
+-   **Uygulama**: @react-native-picker/picker ile modal içinde tür seçimi
+-   **Avantaj**: Kullanıcı deneyimini bozmadan fonksiyonellik sağlama
+
+#### Koyu Tema
+
+-   **Neden?**: Göz yorgunluğunu azaltma ve modern görünüm
+-   **Uygulama**: Özel renk paleti (colors.js)
+-   **Avantaj**: Tutarlı ve profesyonel görünüm
+
+### 3. Veri Yönetimi
+
+#### Yerel State Yönetimi
+
+-   **Yapı**: books.js içinde array tabanlı veri saklama
+-   **Avantaj**: Prototip geliştirme için hızlı çözüm
+-   **Gelecek Geliştirme**: Backend entegrasyonu için hazır yapı
+
+## 🚀 Kurulum Adımları
+
+### 1. Gereksinimler
 
 ```bash
-git clone [repo-url]
+# Node.js (v14 veya üzeri)
+node --version
+
+# npm (v6 veya üzeri)
+npm --version
+
+# React Native CLI
+npm install -g react-native-cli
+
+# Xcode (iOS için, sadece macOS)
+xcode-select --install
+
+# Android Studio (Android için)
+# https://developer.android.com/studio adresinden indirin
 ```
 
-2. Bağımlılıkları yükleyin:
+### 2. Proje Kurulumu
 
 ```bash
+# Projeyi klonlayın
+git clone https://github.com/merttcetn/LibraryApp
+cd LibraryApp
+
+# Bağımlılıkları yükleyin
 npm install
+
+# iOS için ek kurulum (sadece macOS)
+cd ios
+pod install
+cd ..
 ```
 
-3. Uygulamayı başlatın:
+### 3. Geliştirme Ortamı Ayarları
 
 ```bash
+# .env dosyasını oluşturun (gerekirse)
+cp .env.example .env
+
+# Gerekli izinleri ayarlayın (Unix sistemlerde)
+chmod +x android/gradlew
+```
+
+### 4. Uygulamayı Çalıştırma
+
+```bash
+# iOS Simulator için (sadece macOS)
+npm run ios
+
+# Android Emulator için
+npm run android
+
+# Metro bundler'ı başlatma
 npm start
 ```
 
-## 📱 Kullanım
+## 🔧 Proje Yapılandırması
 
-1. Ana ekranda mevcut kitapları görüntüleyin
-2. Sağ üstteki filtre butonuyla türe göre filtreleme yapın
-3. Arama çubuğunu kullanarak kitapları arayın
-4. "Add Book to Library" butonuyla yeni kitap ekleyin
-5. Kitapları sıralamak için sıralama seçeneklerini kullanın
+### Dizin Yapısı ve Sorumluluklar
 
-## 🔄 State Yönetimi
+```
+LibraryApp/
+├── src/                    # Kaynak kodlar
+│   ├── components/         # Yeniden kullanılabilir UI bileşenleri
+│   ├── screens/           # Ekran bileşenleri
+│   ├── features/          # Redux özellikleri
+│   ├── navigation/        # Navigasyon yapılandırması
+│   └── store.ts          # Redux store yapılandırması
+└── assets/
+    └── config/           # Yapılandırma dosyaları
+```
 
-Redux Toolkit ile merkezi state yönetimi:
+### Önemli Yapılandırma Dosyaları
 
--   Sıralama durumu
--   Kitap listesi
--   Arama ve filtreleme durumları
+-   **babel.config.js**: Babel transpiler ayarları
+-   **tsconfig.json**: TypeScript derleyici ayarları
+-   **package.json**: Proje bağımlılıkları ve scriptler
 
-## 🎨 Tasarım
+## 📱 Geliştirme Kılavuzu
 
--   Koyu tema
--   Tutarlı renk paleti
--   Responsive tasarım
--   Kullanıcı dostu arayüz
+### Kod Standartları
+
+-   ESLint ve Prettier kullanımı
+-   TypeScript tip tanımları zorunluluğu
+-   Component bazlı dosya organizasyonu
+
+### State Yönetimi Prensipleri
+
+-   Redux actions için tip tanımları
+-   Immutable state güncellemeleri
+-   Selector kullanımı
+
+### Performans Optimizasyonları
+
+-   React.memo kullanımı
+-   useCallback ve useMemo optimizasyonları
+-   Lazy loading uygulamaları
+
+### 2. Redux İmplementasyonu
+
+#### Sıralama Özelliği
+
+-   **Store Yapısı**:
+    ```typescript
+    interface SortState {
+        selectedSort: "name" | "author" | "isbn" | null;
+    }
+    ```
+-   **Actions**:
+    -   `setSort`: Sıralama kriterini günceller
+    -   `clearSort`: Sıralama kriterini temizler
+
+#### Neden Redux ile Sıralama?
+
+1. **Merkezi Yönetim**:
+
+    - Sıralama tercihi tüm uygulama genelinde tutarlı
+    - Farklı ekranlar/bileşenler arasında senkronizasyon
+    - Sıralama durumunun kalıcılığı
+
+2. **Performans**:
+
+    - Gereksiz yeniden render'ların önlenmesi
+    - Memoization ile optimize edilmiş sıralama
+    - Selector pattern kullanımı
+
+3. **Bakım Kolaylığı**:
+    - Sıralama mantığının tek bir yerde toplanması
+    - Test edilebilirlik
+    - Gelecek geliştirmelere uygunluk

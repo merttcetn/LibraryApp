@@ -12,19 +12,31 @@ import colors from "../../assets/config/colors";
 import SPACING from "../../assets/config/SPACING";
 import { addBook } from "../../assets/config/books";
 
+// Navigation prop tipini tanımla
 type AddBookScreenProps = {
     navigation: StackNavigationProp<any>;
 };
 
+/**
+ * Yeni kitap ekleme ekranı
+ * Kullanıcıdan kitap bilgilerini alır ve kitaplığa ekler
+ */
 const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
+    // Form alanları için state tanımlamaları
     const [bookName, setBookName] = useState("");
     const [isbn, setIsbn] = useState("");
     const [authors, setAuthors] = useState("");
     const [genre, setGenre] = useState("");
     const [bookCover, setBookCover] = useState("");
 
+    /**
+     * Kitap ekleme işlemini gerçekleştirir
+     * - Zorunlu alanları kontrol eder
+     * - Yeni kitabı oluşturur ve ekler
+     * - Başarılı ekleme sonrası ana ekrana döner
+     */
     const handleAddBook = () => {
-        // Validation
+        // Zorunlu alan kontrolü
         if (!bookName || !authors || !genre) {
             Alert.alert(
                 "Missing Information",
@@ -33,34 +45,42 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
             return;
         }
 
-        // Add the book
+        // Yeni kitap objesi oluştur
         const newBook = {
             name: bookName,
             isbn: isbn,
-            authors: authors.split(",").map((author) => author.trim()),
+            authors: authors.split(",").map((author) => author.trim()), // Yazarları virgülle ayır ve boşlukları temizle
             genre: genre,
-            cover: bookCover || "https://via.placeholder.com/150?text=No+Cover",
+            cover: bookCover,
         };
 
+        // Kitabı ekle ve kullanıcıya bildir
         addBook(newBook);
         Alert.alert("Success", "Book added successfully!", [
             {
                 text: "OK",
-                onPress: () => navigation.goBack(),
+                onPress: () => navigation.goBack(), // Ana ekrana dön
             },
         ]);
     };
 
+    /**
+     * Kitap ekleme işlemini iptal eder ve ana ekrana döner
+     */
     const cancelAdding = () => {
         navigation.goBack();
     };
 
     return (
         <View style={styles.container}>
+            {/* Başlık */}
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>Add Book to Library</Text>
             </View>
+
+            {/* Form alanları */}
             <View style={styles.innerContainer}>
+                {/* Kitap adı - Zorunlu alan */}
                 <Text style={styles.label}>Book Name*</Text>
                 <TextInput
                     style={styles.input}
@@ -70,6 +90,7 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
                     placeholder="Book Name"
                 />
 
+                {/* ISBN - Opsiyonel alan */}
                 <Text style={styles.label}>ISBN Number</Text>
                 <TextInput
                     style={styles.input}
@@ -80,6 +101,7 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
                     keyboardType="numeric"
                 />
 
+                {/* Yazarlar - Zorunlu alan */}
                 <Text style={styles.label}>Author(s)*</Text>
                 <TextInput
                     style={styles.input}
@@ -90,6 +112,7 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
                     multiline={true}
                 />
 
+                {/* Tür - Zorunlu alan */}
                 <Text style={styles.label}>Genre*</Text>
                 <TextInput
                     style={styles.input}
@@ -99,6 +122,7 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
                     placeholderTextColor={colors.light}
                 />
 
+                {/* Kapak resmi URL - Opsiyonel alan */}
                 <Text style={styles.label}>Book Cover (URL)</Text>
                 <TextInput
                     style={styles.input}
@@ -107,15 +131,22 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
                     placeholder="Book Cover URL"
                     placeholderTextColor={colors.light}
                 />
+
+                {/* Zorunlu alan bildirimi */}
                 <Text style={styles.note}>* Required fields</Text>
             </View>
+
+            {/* Aksiyon butonları */}
             <View style={styles.buttonContainer}>
+                {/* İptal butonu */}
                 <TouchableOpacity
                     style={styles.cancelButton}
                     onPress={cancelAdding}
                 >
                     <Text style={styles.cancelButtonText}>Cancel</Text>
                 </TouchableOpacity>
+
+                {/* Ekleme butonu */}
                 <TouchableOpacity
                     style={styles.addButton}
                     onPress={handleAddBook}
@@ -127,6 +158,7 @@ const AddBookScreen: React.FC<AddBookScreenProps> = ({ navigation }) => {
     );
 };
 
+// Stil tanımlamaları
 const styles = StyleSheet.create({
     titleContainer: {
         width: "100%",

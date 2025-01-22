@@ -63,7 +63,7 @@ const FilterField: React.FC<FilterFieldProps> = ({
                         {/* Modal başlığı */}
                         <View style={styles.modalHeader}>
                             <Text style={styles.modalTitle}>
-                                Türe Göre Filtrele
+                                Filter by Genre
                             </Text>
                             <TouchableOpacity
                                 onPress={() => setModalVisible(false)}
